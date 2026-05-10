@@ -2,10 +2,11 @@
 An AI pipeline that turns raw customer reviews into actionable business intelligence.
 
 ## What It Does
-It analyzes customer reviews to answer five real business questions:
+It analyzes customer reviews to answer six real business questions:
 - What do customers feel about specific product aspects?
 - Which customers are at risk of churning?
-- Which customers are showing purchase intent?
+- What is the intent behind each review?
+- Which customers show purchase intent?
 - Are customers mentioning competitor products?
 
 ## Project Modules
@@ -15,6 +16,7 @@ It analyzes customer reviews to answer five real business questions:
 | data_preprocessing.py | Cleans raw Amazon review text — removes noise, standardizes format |
 | aspect_extraction.py | Extracts product aspects using spaCy + RAKE, classifies sentiment per aspect using DeBERTa |
 | churn_model.py | Predicts churn risk using TF-IDF + Random Forest, served via FastAPI |
+| intent_model.py | Classifies review intent into 15 categories (praise, complaint, refund request, delivery issue etc.) using TF-IDF + ML classifier, served via FastAPI |
 | purchase_intent_model.py | Detects purchase intent signals from review language |
 | competitive_signal.py | Flags competitor brand mentions within reviews |
 
@@ -27,6 +29,7 @@ It analyzes customer reviews to answer five real business questions:
     "camera": {"sentiment": "positive", "confidence": 0.94},
     "battery": {"sentiment": "negative", "confidence": 0.91}
   },
+  "intent": "complaint",
   "churn_risk": "NO",
   "purchase_intent": "YES",
   "competitor_mention": "NONE"
@@ -39,7 +42,7 @@ It analyzes customer reviews to answer five real business questions:
 - spaCy + RAKE
 - scikit-learn (TF-IDF, Random Forest)
 - FastAPI
-- pandas, numpy
+- pandas, numpy, joblib
 
 ## Dataset
 Amazon customer reviews — preprocessed locally. Raw data available on Kaggle.
